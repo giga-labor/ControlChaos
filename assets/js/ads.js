@@ -154,8 +154,9 @@ const ensureAds = () => {
   hint.className = 'bottom-ad__hint';
   hint.href = '#catalogo';
   hint.setAttribute('aria-label', 'Scorri verso gli algoritmi');
+  const hintLabel = getHintLabel();
   hint.innerHTML = `
-    <span class="bottom-ad__hint-label">Algoritmi</span>
+    <span class="bottom-ad__hint-label">${hintLabel}</span>
     <span class="bottom-ad__hint-arrow">↓</span>
   `;
   bottom.appendChild(hint);
@@ -284,4 +285,13 @@ function localBaseUrl() {
     ? path.slice(0, index + 1)
     : path.replace(/\/[^\/]*$/, '/');
   return new URL(basePath, window.location.href);
+}
+
+function getHintLabel() {
+  const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
+  const isHome = path.endsWith('/index.html') && !path.includes('/pages/');
+  const isStats = path.includes('/pages/analisi-statistiche');
+  const isStorico = path.includes('/pages/storico-estrazioni');
+  if (isHome || isStats || isStorico) return 'Continua...';
+  return 'Algoritmi';
 }
