@@ -1,4 +1,4 @@
-﻿{
+{
     "id":  "arc90-logico-algoritmica",
     "title":  "ARC90",
     "subtitle":  "Algoritmo custom con scoring e regole proprietarie",
@@ -9,5 +9,5 @@
     "narrativeSummary":  "Algoritmo custom con scoring e regole proprietarie.",
     "page":  "pages/algoritmi/arc90-logico-algoritmica/",
     "macroGroup":  "statistica",
-    "isActive":  true
+    "isActive":  false
 }

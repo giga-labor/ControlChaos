@@ -25,7 +25,7 @@
         "narrativeSummary":  "Algoritmo custom con scoring e regole proprietarie.",
         "page":  "pages/algoritmi/arc90-logico-algoritmica/",
         "macroGroup":  "statistica",
-        "isActive":  true,
+        "isActive":  false,
         "cardBase":  "pages/algoritmi/arc90-logico-algoritmica/",
         "imageVersion":  1770332297
     },
