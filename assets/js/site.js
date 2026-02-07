@@ -68,6 +68,7 @@ function renderModules(area, modules) {
     }
 
     const imageUrl = resolveCardImage(module);
+    const imageFallbackUrl = resolveCardBackupImage();
     const narrative = module.narrativeSummary || 'Modulo in evoluzione, presto la scheda completa.';
     const typeLabel = resolveCardType(module);
     const dateLabel = resolveDateLabel(module.lastUpdated);
@@ -90,6 +91,7 @@ function renderModules(area, modules) {
       </div>
     `;
 
+    bindCardImageFallback(card, imageFallbackUrl);
     area.appendChild(card);
   });
   updateCardAlignment(area, modules.length);
@@ -122,19 +124,42 @@ function isActive(module) {
 }
 
 function resolveCardImage(module) {
-  const fallback = 'img/headerControlChaos3.webp';
-  const imageValue = (module.image || '').trim();
-  if (!imageValue) return fallback;
+  const imageValue = String(module?.image || '').trim();
+  if (!imageValue) {
+    return resolveWithBase('img/img.webp');
+  }
   if (imageValue.startsWith('http://') || imageValue.startsWith('https://') || imageValue.startsWith('/')) {
     return appendCacheBuster(imageValue, module.imageVersion);
   }
   if (module.cardBase) {
-    return appendCacheBuster(`${module.cardBase}${imageValue}`, module.imageVersion);
+    return appendCacheBuster(resolveWithBase(joinCardPath(module.cardBase, imageValue)), module.imageVersion);
   }
   if (module.page) {
-    return appendCacheBuster(`${module.page}${imageValue}`, module.imageVersion);
+    return appendCacheBuster(resolveWithBase(joinCardPath(module.page, imageValue)), module.imageVersion);
   }
-  return appendCacheBuster(imageValue, module.imageVersion);
+  return appendCacheBuster(resolveWithBase(imageValue), module.imageVersion);
+}
+
+function resolveCardBackupImage() {
+  return resolveWithBase('img/img_backup.webp');
+}
+
+function joinCardPath(basePath, fileName) {
+  const normalized = String(basePath || '').replace(/\\/g, '/').replace(/^\/+/, '');
+  const imagePath = String(fileName || '').replace(/^\/+/, '');
+  if (!normalized) return imagePath;
+  if (normalized.endsWith('/')) return `${normalized}${imagePath}`;
+  return `${normalized}/${imagePath}`;
+}
+
+function bindCardImageFallback(cardEl, fallbackUrl) {
+  const imageEl = cardEl?.querySelector('img');
+  if (!imageEl) return;
+  imageEl.addEventListener('error', () => {
+    if (imageEl.dataset.fallbackApplied === '1') return;
+    imageEl.dataset.fallbackApplied = '1';
+    imageEl.src = fallbackUrl;
+  });
 }
 
 function resolveImageStyle(module) {

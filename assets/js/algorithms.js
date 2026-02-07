@@ -72,6 +72,7 @@ function renderAlgorithms(area, grouped) {
     const section = document.createElement('section');
     section.className = 'mt-10';
     section.id = `group-${sanitizeId(group.key)}`;
+    section.style.scrollMarginTop = '140px';
     section.innerHTML = `
       <div class="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-neon/30 bg-neon/5 px-4 py-3 shadow-[0_0_18px_rgba(255,217,102,0.18)]">
         <div class="flex items-center gap-3">
@@ -95,6 +96,7 @@ function renderAlgorithms(area, grouped) {
   });
 
   enableCardDepthForAll();
+  scrollToGroupHash();
 }
 
 function renderSpotlightCards(area, cards) {
@@ -119,6 +121,7 @@ function renderSpotlightCards(area, cards) {
 function createAlgorithmCard(algorithm, options = {}) {
   const card = document.createElement('a');
   const imageUrl = resolveCardImage(algorithm);
+  const imageFallbackUrl = resolveCardBackupImage();
   const active = options.forceActive ? true : (algorithm.isActive !== false);
   const typeLabel = resolveCardType(algorithm);
   const dateLabel = resolveDateLabel(algorithm.lastUpdated);
@@ -144,6 +147,8 @@ function createAlgorithmCard(algorithm, options = {}) {
       <p class="algorithm-card__desc text-[0.74rem] leading-[1.25] text-ash">${description}</p>
     </div>
   `;
+
+  bindCardImageFallback(card, imageFallbackUrl);
 
   return card;
 }
@@ -207,6 +212,35 @@ function bindAlgorithmGridLayout(grid, observersStore) {
   } else {
     window.addEventListener('resize', updateColumns);
   }
+}
+
+function scrollToGroupHash() {
+  const hash = String(window.location.hash || '').trim();
+  if (!hash.startsWith('#group-')) return;
+  const fragment = hash.slice(1);
+  const parts = fragment.split('&').filter(Boolean);
+  const targetId = parts[0];
+  const offsetPart = parts.find((part) => part.toLowerCase().startsWith('offset='));
+  const offsetValue = offsetPart ? Number.parseInt(offsetPart.split('=')[1], 10) : 0;
+  const offset = Number.isFinite(offsetValue) ? offsetValue : 0;
+
+  const tryScroll = (attemptsLeft) => {
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (offset !== 0) {
+        window.setTimeout(() => {
+          window.scrollBy({ top: offset, left: 0, behavior: 'auto' });
+        }, 280);
+      }
+      return;
+    }
+    if (attemptsLeft > 0) {
+      window.setTimeout(() => tryScroll(attemptsLeft - 1), 50);
+    }
+  };
+
+  tryScroll(20);
 }
 function sortByTitle(a, b) {
   const activeA = a.isActive !== false;
@@ -277,19 +311,42 @@ function resolveDateLabel(lastUpdated) {
 }
 
 function resolveCardImage(card) {
-  const fallback = '../../img/headerControlChaos3.webp';
-  const imageValue = (card.image || '').trim();
-  if (!imageValue) return fallback;
+  const imageValue = String(card?.image || '').trim();
+  if (!imageValue) {
+    return resolveWithBase('img/img.webp');
+  }
   if (imageValue.startsWith('http://') || imageValue.startsWith('https://') || imageValue.startsWith('/')) {
     return appendCacheBuster(imageValue, card.imageVersion);
   }
   if (card.cardBase) {
-    return appendCacheBuster(`../../${card.cardBase}${imageValue}`, card.imageVersion);
+    return appendCacheBuster(resolveWithBase(joinCardPath(card.cardBase, imageValue)), card.imageVersion);
   }
   if (card.page) {
-    return appendCacheBuster(`../../${card.page}${imageValue}`, card.imageVersion);
+    return appendCacheBuster(resolveWithBase(joinCardPath(card.page, imageValue)), card.imageVersion);
   }
-  return appendCacheBuster(imageValue, card.imageVersion);
+  return appendCacheBuster(resolveWithBase(imageValue), card.imageVersion);
+}
+
+function resolveCardBackupImage() {
+  return resolveWithBase('img/img_backup.webp');
+}
+
+function joinCardPath(basePath, fileName) {
+  const normalized = String(basePath || '').replace(/\\/g, '/').replace(/^\/+/, '');
+  const imagePath = String(fileName || '').replace(/^\/+/, '');
+  if (!normalized) return imagePath;
+  if (normalized.endsWith('/')) return `${normalized}${imagePath}`;
+  return `${normalized}/${imagePath}`;
+}
+
+function bindCardImageFallback(cardEl, fallbackUrl) {
+  const imageEl = cardEl?.querySelector('img');
+  if (!imageEl) return;
+  imageEl.addEventListener('error', () => {
+    if (imageEl.dataset.fallbackApplied === '1') return;
+    imageEl.dataset.fallbackApplied = '1';
+    imageEl.src = fallbackUrl;
+  });
 }
 
 function appendCacheBuster(url, version) {

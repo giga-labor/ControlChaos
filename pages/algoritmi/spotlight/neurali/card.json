@@ -1,8 +1,8 @@
-﻿{
+{
   "id": "tipologia-neurali",
   "title": "Algoritmi Neurali",
   "subtitle": "Reti neurali e sistemi evolutivi per previsione e scoring",
-  "image": "/img/headerControlChaos3.webp",
+  "image": "img.webp",
   "lastUpdated": "07/02/2026",
   "hasNews": false,
   "statusTag": "Tipologia",

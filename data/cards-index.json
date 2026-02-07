@@ -120,21 +120,6 @@
         "imageVersion":  1770332303
     },
     {
-        "id":  "lightgbm",
-        "title":  "Lightgbm",
-        "subtitle":  "Descrizione in arrivo",
-        "image":  "img.webp",
-        "lastUpdated":  "07/02/2026",
-        "hasNews":  false,
-        "statusTag":  "Scheda tecnica",
-        "narrativeSummary":  "Aggiornamenti in preparazione.",
-        "page":  "pages/algoritmi/lightgbm/",
-        "macroGroup":  "statistica",
-        "isActive":  false,
-        "cardBase":  "pages/algoritmi/lightgbm/",
-        "imageVersion":  1770332304
-    },
-    {
         "id":  "ma-3-master-architect-orchestrazione-subnetworks",
         "title":  "MA 3 OK2",
         "subtitle":  "Orchestratore con subnetworks indipendenti",

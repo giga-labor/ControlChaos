@@ -33,12 +33,18 @@
   <main class="content-fade mx-auto flex w-[calc(100%-2rem)] max-w-[85rem] flex-col gap-10 px-12 py-2">
     <div class="content-box">
       <section class="rounded-3xl bg-transparent p-6">
-        <div class="flex flex-wrap items-center justify-between gap-4">
+        <div class="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p class="text-xs uppercase tracking-[0.2em] text-ash">Tipologia</p>
+            <div class="mb-2 mt-1 h-px w-24 bg-gradient-to-r from-neon/80 via-white/60 to-transparent"></div>
             <h1 class="text-2xl font-semibold">Algoritmi Ibridi</h1>
+            <span class="mt-2 inline-flex rounded-full border border-white/10 bg-midnight/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-ash">Ultimo aggiornamento: 07/02/2026</span>
           </div>
-          <span class="rounded-full border border-white/10 bg-midnight/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-ash">Ultimo aggiornamento: 07/02/2026</span>
+          <div class="ml-auto w-[min(42vw,220px)]">
+            <a data-spotlight-hero-card class="card-3d is-active spotlight-hero-card block w-full cursor-pointer overflow-hidden rounded-xl transition hover:border-neon/70" style="aspect-ratio: 15 / 8;" href="../../index.html#group-ibrido" aria-label="Vai all'elenco algoritmi ibridi">
+              <img src="img.webp" alt="Anteprima algoritmi ibridi" class="block h-full w-full object-cover" loading="lazy" onerror="this.onerror=null;this.src='../../../../img/img_backup.webp';">
+            </a>
+          </div>
         </div>
 
         <div class="mt-8 space-y-6 text-sm text-ash">
@@ -82,6 +88,8 @@
   </footer>
 
   <script src="../../../../assets/js/version.js" defer></script>
+  <script src="../../../../assets/js/cards.js" defer></script>
+  <script src="../../../../assets/js/spotlight-detail.js" defer></script>
   <script src="../../../../assets/js/header.js" defer></script>
   <script src="../../../../assets/js/ads.js" defer></script>
 </body>

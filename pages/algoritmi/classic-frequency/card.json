@@ -1,0 +1,13 @@
+{
+    "id":  "classic-frequency",
+    "title":  "classic-frequency",
+    "subtitle":  "Analisi frequenziale su storico estrazioni",
+    "image":  "img.webp",
+    "lastUpdated":  "07/02/2026",
+    "hasNews":  false,
+    "statusTag":  "Scheda tecnica",
+    "narrativeSummary":  "Modello statistico basato su frequenze assolute e relative dei numeri nel tempo.",
+    "page":  "/pages/algoritmi/classic-frequency/",
+    "macroGroup":  "statistica",
+    "isActive":  false
+}

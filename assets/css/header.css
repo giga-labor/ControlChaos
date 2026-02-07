@@ -1465,6 +1465,61 @@ body main.content-fade > section#modules .card-date-badge {
   mask-image: linear-gradient(to bottom, #000 0%, #000 84%, rgba(0, 0, 0, 0.76) 93%, rgba(0, 0, 0, 0) 100%);
 }
 
+/* spotlight hero: stronger glass/light signature */
+.spotlight-hero-card.card-3d {
+  --spotlight-glow-x: 50%;
+  --spotlight-glow-y: 18%;
+  position: relative;
+  isolation: isolate;
+  border-color: rgba(255, 230, 150, 0.34) !important;
+  box-shadow:
+    0 8px 0 rgba(8, 10, 20, 0.68),
+    0 20px 34px rgba(0, 0, 0, 0.5),
+    0 0 22px rgba(255, 217, 102, 0.18),
+    0 0 34px rgba(173, 216, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -12px 18px rgba(7, 10, 20, 0.28) !important;
+}
+
+.spotlight-hero-card.card-3d > img {
+  position: relative;
+  z-index: 1;
+  filter: saturate(1.02) contrast(1.01) brightness(1);
+  transition: filter 180ms ease;
+}
+
+.spotlight-hero-card.card-3d:hover,
+.spotlight-hero-card.card-3d.is-hovered {
+  box-shadow:
+    0 13px 0 rgba(8, 10, 20, 0.82),
+    0 36px 58px rgba(0, 0, 0, 0.66),
+    0 0 84px rgba(255, 217, 102, 0.62),
+    0 0 132px rgba(173, 216, 255, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    inset 0 -18px 24px rgba(7, 10, 20, 0.4) !important;
+}
+
+.spotlight-hero-card.card-3d::before {
+  z-index: 2;
+  opacity: 0.52;
+  background:
+    radial-gradient(62% 46% at 14% 7%, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0) 72%),
+    radial-gradient(circle at var(--card-glow-x) var(--card-glow-y), rgba(255, 252, 232, 0.38), rgba(255, 255, 255, 0) 44%),
+    linear-gradient(155deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.07) 24%, rgba(255, 255, 255, 0) 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 60%),
+    radial-gradient(circle at var(--spotlight-glow-x) var(--spotlight-glow-y), rgba(255, 245, 205, 0.28), rgba(255, 245, 205, 0) 36%),
+    radial-gradient(ellipse at 50% 100%, rgba(173, 216, 255, 0.18), rgba(173, 216, 255, 0) 74%) !important;
+}
+
+.spotlight-hero-card.card-3d::after {
+  z-index: 3;
+}
+
+.spotlight-hero-card.card-3d:hover > img,
+.spotlight-hero-card.card-3d.is-hovered > img {
+  filter: saturate(1.24) contrast(1.09) brightness(1.06);
+}
+
 /* global: prevent clipping/overlay artifacts during page navigation */
 html.is-navigating #site-header,
 html.is-navigating #site-header * {
