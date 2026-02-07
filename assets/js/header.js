@@ -18,6 +18,17 @@ const ensureAnalytics = () => {
 
 ensureAnalytics();
 
+const ensureViewTransitionMeta = () => {
+  const existing = document.querySelector('meta[name="view-transition"]');
+  if (existing) return;
+  const meta = document.createElement('meta');
+  meta.setAttribute('name', 'view-transition');
+  meta.setAttribute('content', 'same-origin');
+  document.head.appendChild(meta);
+};
+
+ensureViewTransitionMeta();
+
 let header = document.getElementById('site-header');
 
 const resolveBasePath = () => {
@@ -637,6 +648,7 @@ if (audioToggle && AUDIO_ENABLED) {
   window.addEventListener('scroll', () => {
     if (audioMenu && audioMenu.classList.contains('is-visible')) positionMenu();
   }, { passive: true });
+}
 
 const smoothScrollToTop = (duration = 600) => {
   const start = window.scrollY || window.pageYOffset;
@@ -669,4 +681,36 @@ document.querySelectorAll('a[href="#top"]').forEach((link) => {
     smoothScrollToTop();
   });
 });
-}
+
+const isInternalNavigation = (href) => {
+  if (!href || href.startsWith('#') || href.startsWith('javascript:')) return false;
+  try {
+    const target = new URL(href, window.location.href);
+    if (target.origin !== window.location.origin) return false;
+    if (target.pathname === window.location.pathname && target.hash) return false;
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+const markPageNavigating = () => {
+  document.documentElement.classList.add('is-navigating');
+};
+
+const supportsCrossDocumentTransitions = () => {
+  if (typeof CSS === 'undefined' || typeof CSS.supports !== 'function') return false;
+  return CSS.supports('view-transition-name: page-main');
+};
+
+document.addEventListener('click', (event) => {
+  if (event.defaultPrevented) return;
+  const anchor = event.target.closest('a[href]');
+  if (!anchor) return;
+  if (anchor.target && anchor.target !== '_self') return;
+  if (anchor.hasAttribute('download')) return;
+  const href = anchor.getAttribute('href') || '';
+  if (!isInternalNavigation(href)) return;
+  if (supportsCrossDocumentTransitions()) return;
+  markPageNavigating();
+});

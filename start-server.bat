@@ -5,20 +5,17 @@ cd /d "%~dp0"
 
 set "PORT=8000"
 set "HOST=localhost"
-set "URL=http://%HOST%:%PORT%/"
 
 where py >nul 2>nul
 if %errorlevel%==0 (
-  echo Avvio server locale su %URL%
-  start "" "%URL%"
+  echo Avvio server locale su http://%HOST%:%PORT%/
   py -m http.server %PORT%
   goto :eof
 )
 
 where python >nul 2>nul
 if %errorlevel%==0 (
-  echo Avvio server locale su %URL%
-  start "" "%URL%"
+  echo Avvio server locale su http://%HOST%:%PORT%/
   python -m http.server %PORT%
   goto :eof
 )

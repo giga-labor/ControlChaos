@@ -10,6 +10,69 @@
       --card-min: 180px;
       --card-max: 260px;
     }
+    @view-transition {
+      navigation: auto;
+    }
+    main.content-fade {
+      view-transition-name: page-main;
+    }
+    footer {
+      view-transition-name: page-footer;
+    }
+    ::view-transition-group(root) {
+      animation: none;
+    }
+    :root {
+      --vt-exit: 760ms;
+      --vt-enter: 980ms;
+      --vt-ease-exit: cubic-bezier(0.22, 0.61, 0.36, 1);
+      --vt-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    ::view-transition-old(page-main),
+    ::view-transition-old(page-footer) {
+      animation: page-exit-cinematic var(--vt-exit) var(--vt-ease-exit) both;
+    }
+    ::view-transition-new(page-main),
+    ::view-transition-new(page-footer) {
+      animation: page-enter-cinematic var(--vt-enter) var(--vt-ease-enter) var(--vt-exit) both;
+    }
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+    }
+    #site-header {
+      view-transition-name: page-header;
+    }
+    ::view-transition-old(page-header) {
+      animation: header-exit-cinematic 700ms var(--vt-ease-exit) both;
+    }
+    ::view-transition-new(page-header) {
+      animation: header-enter-cinematic 1040ms var(--vt-ease-enter) var(--vt-exit) both;
+    }
+    .ad-rail,
+    .bottom-ad {
+      view-transition-name: none;
+    }
+    @keyframes page-exit-cinematic {
+      0% { transform: translateY(0) scale(1); opacity: 1; filter: blur(0px); }
+      40% { transform: translateY(22px) scale(0.996); opacity: 0.9; filter: blur(0.8px); }
+      100% { transform: translateY(112px) scale(0.985); opacity: 0; filter: blur(3px); }
+    }
+    @keyframes page-enter-cinematic {
+      0% { transform: translateY(130px) scale(0.992); opacity: 0; filter: blur(4px); }
+      58% { transform: translateY(18px) scale(0.997); opacity: 0.96; filter: blur(1px); }
+      78% { transform: translateY(-4px) scale(1.001); opacity: 1; filter: blur(0.4px); }
+      100% { transform: translateY(0) scale(1); opacity: 1; filter: blur(0px); }
+    }
+    @keyframes header-exit-cinematic {
+      0% { transform: translateY(0); opacity: 1; filter: blur(0px); }
+      100% { transform: translateY(46px); opacity: 0; filter: blur(2px); }
+    }
+    @keyframes header-enter-cinematic {
+      0% { transform: translateY(52px); opacity: 0; filter: blur(2px); }
+      65% { transform: translateY(4px); opacity: 0.98; }
+      100% { transform: translateY(0); opacity: 1; filter: blur(0px); }
+    }
     html {
       box-sizing: border-box;
       font-size: clamp(16px, 0.9rem + 0.5vw, 20px);
@@ -1400,4 +1463,28 @@ body main.content-fade > section#modules .card-date-badge {
     linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 26%);
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 84%, rgba(0, 0, 0, 0.76) 93%, rgba(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 84%, rgba(0, 0, 0, 0.76) 93%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* global: prevent clipping/overlay artifacts during page navigation */
+html.is-navigating #site-header,
+html.is-navigating #site-header * {
+  animation: none !important;
+  transition: none !important;
+}
+
+html.is-navigating #site-header .header-overlay {
+  opacity: 0 !important;
+}
+
+html.is-navigating main.content-fade,
+html.is-navigating main.content-fade > .content-box {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  overflow: visible !important;
+}
+
+html.is-navigating .ad-rail,
+html.is-navigating .bottom-ad {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }

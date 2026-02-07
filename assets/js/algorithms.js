@@ -1,12 +1,30 @@
 const cardsIndexPath = 'data/cards-index.json';
+const spotlightCardsIndexPath = 'data/algorithms-spotlight/cards-index.json';
 
 document.addEventListener('DOMContentLoaded', () => {
   enableCardDepthForAll();
   const area = document.querySelector('[data-algorithms-area]');
   const counter = document.querySelector('[data-algorithms-count]');
+  const spotlightArea = document.querySelector('[data-spotlight-cards]');
+  if (spotlightArea) {
+    loadSpotlightCards(spotlightArea);
+  }
   if (!area) return;
   loadAlgorithms(area, counter);
 });
+
+async function loadSpotlightCards(area) {
+  try {
+    const cards = await loadCardsIndex(spotlightCardsIndexPath);
+    const spotlight = cards
+      .filter((card) => card.isActive !== false)
+      .sort(sortBySpotlightType)
+      .slice(0, 3);
+    renderSpotlightCards(area, spotlight);
+  } catch (error) {
+    area.innerHTML = '<div class="rounded-2xl border border-dashed border-white/15 bg-transparent p-5 text-sm text-ash">Impossibile caricare le tipologie.</div>';
+  }
+}
 
 async function loadAlgorithms(area, counter) {
   try {
@@ -53,6 +71,7 @@ function renderAlgorithms(area, grouped) {
   grouped.forEach((group) => {
     const section = document.createElement('section');
     section.className = 'mt-10';
+    section.id = `group-${sanitizeId(group.key)}`;
     section.innerHTML = `
       <div class="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-neon/30 bg-neon/5 px-4 py-3 shadow-[0_0_18px_rgba(255,217,102,0.18)]">
         <div class="flex items-center gap-3">
@@ -66,78 +85,127 @@ function renderAlgorithms(area, grouped) {
 
     const grid = section.querySelector('[data-group-grid]');
     group.items.forEach((algorithm) => {
-      const card = document.createElement('a');
-      const imageUrl = resolveCardImage(algorithm);
-      const active = algorithm.isActive !== false;
-      const typeLabel = resolveCardType(algorithm);
-      const dateLabel = resolveDateLabel(algorithm.lastUpdated);
-      const description = algorithm.subtitle || algorithm.narrativeSummary || 'Descrizione in arrivo';
-
-      card.className = `card-3d algorithm-card group relative flex min-h-[330px] flex-col overflow-hidden rounded-2xl border border-white/10 transition hover:border-neon/60${active ? ' is-active shadow-[0_0_22px_rgba(255,217,102,0.22)]' : ' is-inactive bg-black/70 border-white/5'}`;
-      card.href = active ? (algorithm.page || '#') : '#';
-      if (!active) {
-        card.setAttribute('aria-disabled', 'true');
-        card.addEventListener('click', (event) => event.preventDefault());
-      }
-
-      card.innerHTML = `
-        ${active ? '' : '<div class="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-black/45"><span class="select-none whitespace-nowrap text-[clamp(0.68rem,2.1vw,1.9rem)] font-semibold uppercase tracking-[clamp(0.16em,0.8vw,0.5em)] text-neon/60 rotate-[-60deg] [text-shadow:0_0_18px_rgba(255,217,102,0.65),0_0_32px_rgba(0,0,0,0.85)]">coming soon</span></div>'}
-        <div class="algorithm-card__media algorithm-card__media--third relative overflow-hidden">
-          <img class="h-full w-full object-cover" src="${imageUrl}" alt="Anteprima di ${algorithm.title}">
-          <span class="card-type-badge">${typeLabel}</span>
-          <span class="card-date-badge">${dateLabel}</span>
-        </div>
-        <div class="algorithm-card__body flex flex-1 flex-col gap-1.5 px-4 py-2.5">
-          <span class="text-[10px] uppercase tracking-[0.22em] text-neon/90">${algorithm.macroGroup || 'algoritmo'}</span>
-          <h3 class="text-[0.98rem] font-semibold leading-tight ${active ? 'group-hover:text-neon' : ''}">${algorithm.title || 'Algoritmo'}</h3>
-          <p class="algorithm-card__desc text-[0.74rem] leading-[1.25] text-ash">${description}</p>
-        </div>
-      `;
+      const card = createAlgorithmCard(algorithm, { forceActive: false });
       grid.appendChild(card);
     });
 
     area.appendChild(section);
 
-    if (grid) {
-      const getCardMin = () => {
-        const raw = getComputedStyle(document.documentElement).getPropertyValue('--card-min');
-        const parsed = Number.parseFloat(raw);
-        return Number.isFinite(parsed) ? parsed : 220;
-      };
-      const getGap = () => {
-        const styles = getComputedStyle(grid);
-        const rawGap = styles.columnGap || styles.gap || '0';
-        const parsed = Number.parseFloat(rawGap);
-        return Number.isFinite(parsed) ? parsed : 0;
-      };
-      const updateColumns = () => {
-        const width = grid.clientWidth || grid.getBoundingClientRect().width || 0;
-        if (!width) return;
-        const cardMin = getCardMin();
-        const gap = getGap();
-        const columns = Math.max(1, Math.floor((width + gap) / (cardMin + gap)));
-        grid.style.setProperty('display', 'grid');
-        grid.style.setProperty('width', '100%');
-        grid.style.setProperty('grid-template-columns', `repeat(${columns}, minmax(0, 1fr))`, 'important');
-      };
-      updateColumns();
-      if ('ResizeObserver' in window) {
-        const observer = new ResizeObserver(() => updateColumns());
-        observer.observe(grid);
-        gridObservers.push(observer);
-      } else {
-        window.addEventListener('resize', updateColumns);
-      }
-    }
+    if (grid) bindAlgorithmGridLayout(grid, gridObservers);
   });
 
   enableCardDepthForAll();
+}
+
+function renderSpotlightCards(area, cards) {
+  area.innerHTML = '';
+  const gridObservers = [];
+  if (!Array.isArray(cards) || cards.length === 0) {
+    area.innerHTML = '<div class="rounded-2xl border border-dashed border-white/15 bg-transparent p-5 text-sm text-ash">Nessuna tipologia attiva disponibile.</div>';
+    return;
+  }
+
+  const visibleCards = cards.slice(0, 3);
+  visibleCards.forEach((cardData) => {
+    const card = createAlgorithmCard(cardData, { forceActive: false });
+    area.appendChild(card);
+  });
+
+  bindAlgorithmGridLayout(area, gridObservers);
+
+  enableCardDepthForAll();
+}
+
+function createAlgorithmCard(algorithm, options = {}) {
+  const card = document.createElement('a');
+  const imageUrl = resolveCardImage(algorithm);
+  const active = options.forceActive ? true : (algorithm.isActive !== false);
+  const typeLabel = resolveCardType(algorithm);
+  const dateLabel = resolveDateLabel(algorithm.lastUpdated);
+  const description = algorithm.subtitle || algorithm.narrativeSummary || 'Descrizione in arrivo';
+
+  card.className = `card-3d algorithm-card group relative flex min-h-[330px] flex-col overflow-hidden rounded-2xl border border-white/10 transition hover:border-neon/60${active ? ' is-active shadow-[0_0_22px_rgba(255,217,102,0.22)]' : ' is-inactive bg-black/70 border-white/5'}`;
+  card.href = active ? (algorithm.page || '#') : '#';
+  if (!active) {
+    card.setAttribute('aria-disabled', 'true');
+    card.addEventListener('click', (event) => event.preventDefault());
+  }
+
+  card.innerHTML = `
+    ${active ? '' : '<div class="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-black/45"><span class="select-none whitespace-nowrap text-[clamp(0.68rem,2.1vw,1.9rem)] font-semibold uppercase tracking-[clamp(0.16em,0.8vw,0.5em)] text-neon/60 rotate-[-60deg] [text-shadow:0_0_18px_rgba(255,217,102,0.65),0_0_32px_rgba(0,0,0,0.85)]">coming soon</span></div>'}
+    <div class="algorithm-card__media algorithm-card__media--third relative overflow-hidden">
+      <img class="h-full w-full object-cover" src="${imageUrl}" alt="Anteprima di ${algorithm.title}">
+      <span class="card-type-badge">${typeLabel}</span>
+      <span class="card-date-badge">${dateLabel}</span>
+    </div>
+    <div class="algorithm-card__body flex flex-1 flex-col gap-1.5 px-4 py-2.5">
+      <span class="text-[10px] uppercase tracking-[0.22em] text-neon/90">${algorithm.macroGroup || 'algoritmo'}</span>
+      <h3 class="text-[0.98rem] font-semibold leading-tight ${active ? 'group-hover:text-neon' : ''}">${algorithm.title || 'Algoritmo'}</h3>
+      <p class="algorithm-card__desc text-[0.74rem] leading-[1.25] text-ash">${description}</p>
+    </div>
+  `;
+
+  return card;
 }
 
 
 function enableCardDepthForAll() {
   if (window.CARDS && typeof window.CARDS.enableDepth === 'function') {
     window.CARDS.enableDepth(document);
+  }
+}
+
+function sanitizeId(value) {
+  return String(value || 'algoritmo')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function sortBySpotlightType(a, b) {
+  const order = ['statistici', 'neurale', 'ibrido'];
+  const keyA = String(a?.macroGroup || '').toLowerCase();
+  const keyB = String(b?.macroGroup || '').toLowerCase();
+  const indexA = order.indexOf(keyA);
+  const indexB = order.indexOf(keyB);
+  if (indexA !== -1 || indexB !== -1) {
+    if (indexA === -1) return 1;
+    if (indexB === -1) return -1;
+    return indexA - indexB;
+  }
+  return String(a?.title || '').localeCompare(String(b?.title || ''));
+}
+
+function bindAlgorithmGridLayout(grid, observersStore) {
+  const getCardMin = () => {
+    const raw = getComputedStyle(document.documentElement).getPropertyValue('--card-min');
+    const parsed = Number.parseFloat(raw);
+    return Number.isFinite(parsed) ? parsed : 220;
+  };
+  const getGap = () => {
+    const styles = getComputedStyle(grid);
+    const rawGap = styles.columnGap || styles.gap || '0';
+    const parsed = Number.parseFloat(rawGap);
+    return Number.isFinite(parsed) ? parsed : 0;
+  };
+  const updateColumns = () => {
+    const width = grid.clientWidth || grid.getBoundingClientRect().width || 0;
+    if (!width) return;
+    const cardMin = getCardMin();
+    const gap = getGap();
+    const columns = Math.max(1, Math.floor((width + gap) / (cardMin + gap)));
+    grid.style.setProperty('display', 'grid');
+    grid.style.setProperty('width', '100%');
+    grid.style.setProperty('grid-template-columns', `repeat(${columns}, minmax(0, 1fr))`, 'important');
+  };
+
+  updateColumns();
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(() => updateColumns());
+    observer.observe(grid);
+    if (Array.isArray(observersStore)) observersStore.push(observer);
+  } else {
+    window.addEventListener('resize', updateColumns);
   }
 }
 function sortByTitle(a, b) {

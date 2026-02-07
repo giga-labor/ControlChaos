@@ -1,0 +1,13 @@
+﻿{
+  "id": "tipologia-logici",
+  "title": "Algoritmi Logici",
+  "subtitle": "Pipeline decisionali, regole e motori inferenziali",
+  "image": "/img/headerControlChaos3.webp",
+  "lastUpdated": "07/02/2026",
+  "hasNews": false,
+  "statusTag": "Tipologia",
+  "narrativeSummary": "Accesso rapido ai moduli logici del catalogo.",
+  "page": "#group-logici",
+  "macroGroup": "logici",
+  "isActive": true
+}
