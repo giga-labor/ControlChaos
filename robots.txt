@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://giga-labor.github.io/secc/sitemap.xml

@@ -1,14 +1,13 @@
-{
-  "id": "6d",
-  "title": "6D",
-  "subtitle": "Modulo 6D (dataset + docs)",
-  "image": "img.webp",
-  "lastUpdated": "",
-  "hasNews": false,
-  "statusTag": "Pagina in allestimento",
-  "narrativeSummary": "Modulo 6D (dataset + docs).",
-  "page": "pages/algoritmi/6d/",
-  "macroGroup": "statistica",
-  "isActive": false
+﻿{
+    "id":  "6d",
+    "title":  "6D",
+    "subtitle":  "Modulo 6D (dataset + docs)",
+    "image":  "img.webp",
+    "lastUpdated":  "07/02/2026",
+    "hasNews":  false,
+    "statusTag":  "Scheda tecnica",
+    "narrativeSummary":  "Modulo 6D (dataset + docs).",
+    "page":  "pages/algoritmi/6d/",
+    "macroGroup":  "statistica",
+    "isActive":  false
 }
-

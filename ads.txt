@@ -1,0 +1,5 @@
+﻿# ads.txt for SuperEnalotto Control Chaos
+# Inserisci il tuo publisher ID AdSense reale prima della richiesta definitiva.
+# Formato richiesto: google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+# Esempio (non attivo finche non sostituisci X):
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0

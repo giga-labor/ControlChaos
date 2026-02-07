@@ -1,19 +1,17 @@
 import json
 import pathlib
 
-root = pathlib.Path(r'd:\PROGETTI\SuperEnalotto\Sito - ControlChaos Rapid\complesso')
+root = pathlib.Path(__file__).resolve().parent.parent
 algos_dir = root / 'pages' / 'algoritmi'
 output_path = root / 'data' / 'cards-index.json'
 
 cards = []
 
 if algos_dir.exists():
-    for algo_dir in sorted([p for p in algos_dir.iterdir() if p.is_dir()]):
+    for algo_dir in sorted([p for p in algos_dir.rglob('*') if p.is_dir() and (p / 'card.json').exists()]):
         card_path = algo_dir / 'card.json'
-        if not card_path.exists():
-            continue
         try:
-            card_data = json.loads(card_path.read_text(encoding='utf-8'))
+            card_data = json.loads(card_path.read_text(encoding='utf-8-sig'))
         except Exception:
             continue
         if not isinstance(card_data, dict):
@@ -36,7 +34,7 @@ if algos_dir.exists():
 storico_card_path = root / 'pages' / 'storico-estrazioni' / 'card.json'
 if storico_card_path.exists():
     try:
-        storico_data = json.loads(storico_card_path.read_text(encoding='utf-8'))
+        storico_data = json.loads(storico_card_path.read_text(encoding='utf-8-sig'))
     except Exception:
         storico_data = None
     if isinstance(storico_data, dict):

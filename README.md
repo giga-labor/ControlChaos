@@ -1,61 +1,82 @@
-# Control Chaos
+﻿# Control Chaos
 
-Static website for SuperEnalotto analysis, algorithms, and historical draws.  
-No backend: everything is client-side and served as static files.
+Static website for SuperEnalotto analysis, algorithms, and historical draws.
+No backend: all pages are client-side and served as static files.
 
-## What’s Inside
-- Home page with featured modules and updates.
-- Algorithms catalog with grouped cards.
-- Historical draws page (`draws.csv`).
-- Visual ads rails and ticker (placeholder content, not ad-network).
-- Optional audio playlist (currently disabled by flag).
+## Repository
+- GitHub: `https://github.com/giga-labor/secc`
+- Default branch: `main`
+- Deploy target: GitHub Pages (`/` root)
+
+## Current Contents
+- Home with featured modules and project updates
+- Algorithms catalog with dedicated technical pages
+- Historical draws page backed by `draws.csv`
+- Statistics page with editorial content (frequencies, delays, co-occurrences)
+- Legal pages: Privacy, Cookie, Contacts/About
+- Visual rails/ticker components (project UI elements, not ad-network widgets)
 
 ## Project Structure
-- `index.html` home page
-- `pages/algoritmi/` algorithms catalog and detail pages
-- `pages/storico-estrazioni/` historical draws page
-- `pages/analisi-statistiche/` stats landing page
-- `assets/` CSS/JS/audio
-- `img/` shared images
-- `data/modules-manifest.json` list of all cards (source of truth)
-- `data/cards-index.json` optional fallback index
-- `archives/draws/draws.csv` historical draws dataset
-- `scripts/` local utilities (optional)
+- `index.html`: home page
+- `pages/algoritmi/`: algorithms catalog and detail pages
+- `pages/storico-estrazioni/`: historical draws page
+- `pages/analisi-statistiche/`: statistics page
+- `pages/privacy-policy/`: privacy policy
+- `pages/cookie-policy/`: cookie policy
+- `pages/contatti-chi-siamo/`: contacts/about
+- `assets/`: CSS/JS/audio
+- `img/`: shared images
+- `archives/draws/draws.csv`: historical draws dataset
+- `data/modules-manifest.json`: cards source of truth
+- `data/cards-index.json`: generated/fallback cards index
+- `scripts/`: local maintenance utilities
 
-## Cards & Manifest
-Cards are defined by `card.json` files under `pages/algoritmi/*/` and a few static pages.
+## Cards Flow
+Cards are loaded at runtime from `data/modules-manifest.json`.
+Each algorithm page has a `card.json`.
 
 To add a new algorithm card:
-1. Create a folder: `pages/algoritmi/<id>/`
-2. Add `card.json` and `index.html` (and optional `img.webp`)
-3. Add the card path to `data/modules-manifest.json`
-
-The site builds the cards index **at runtime** in the browser using the manifest.  
-`data/cards-index.json` is used only as a fallback.
+1. Create `pages/algoritmi/<id>/`
+2. Add `index.html`, `card.json`, optional `img.webp`
+3. Add `pages/algoritmi/<id>/card.json` to `data/modules-manifest.json`
+4. (Optional) refresh fallback index:
+```bash
+python scripts/build-cards-index.py
+```
 
 ## Local Development
-Use the provided script:
+Run:
 ```bat
 start-server.bat
 ```
 Then open:
 - `http://localhost:8000/`
 
-## GitHub Pages Deploy
-This is a static site. Push to GitHub and enable Pages:
-1. Repo → Settings → Pages
-2. Source: Deploy from a branch
-3. Branch: `main`, Folder: `/ (root)`
+## SEO / Crawl / Ads Readiness Files
+Root files currently included:
+- `ads.txt` (template to complete with your real AdSense publisher ID)
+- `robots.txt`
+- `sitemap.xml`
 
-Site URL:
-```
-https://<username>.github.io/ControlChaos/
-```
+Important:
+- Replace the placeholder line in `ads.txt` with your real `pub-...` before production monetization checks.
+
+## Versioning
+- UI version is exposed by `assets/js/version.js` (`window.CC_VERSION`).
+- Bump version on every release batch.
+
+## Deployment (GitHub Pages)
+1. Repo -> Settings -> Pages
+2. Source: Deploy from a branch
+3. Branch: `main`
+4. Folder: `/ (root)`
+
+Expected site URL:
+- `https://giga-labor.github.io/secc/`
 
 ## Notes
-- Audio autoplay is restricted by browsers. Audio toggle is disabled by default.
-- No backend is required or used.
-- Ads are placeholders; no ad-network integration is included.
+- Audio autoplay is browser-restricted; audio toggle is disabled by default.
+- No backend is required.
 
 ## Italian Documentation
-See `README.it.md` for the Italian version.
+See `README.it.md`.

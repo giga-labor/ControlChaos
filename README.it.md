@@ -1,58 +1,82 @@
-# Control Chaos
+﻿# Control Chaos
 
-Sito statico per analisi, algoritmi e storico estrazioni SuperEnalotto.  
-Nessun backend: tutto gira lato client e viene servito come file statici.
+Sito statico per analisi, algoritmi e storico estrazioni SuperEnalotto.
+Nessun backend: tutte le pagine sono client-side e servite come file statici.
 
-## Contenuti
-- Home con moduli in evidenza
-- Catalogo algoritmi con card raggruppate
-- Pagina storico estrazioni (`draws.csv`)
-- Banner laterali e ticker (placeholder, non rete pubblicitaria)
-- Audio playlist opzionale (disabilitata di default)
+## Repository
+- GitHub: `https://github.com/giga-labor/secc`
+- Branch principale: `main`
+- Deploy: GitHub Pages (root `/`)
 
-## Struttura
-- `index.html` home
-- `pages/algoritmi/` catalogo e pagine algoritmo
-- `pages/storico-estrazioni/` storico estrazioni
-- `pages/analisi-statistiche/` pagina analisi
-- `assets/` CSS/JS/audio
-- `img/` immagini condivise
-- `data/modules-manifest.json` lista di tutte le card (sorgente principale)
-- `data/cards-index.json` fallback opzionale
-- `archives/draws/draws.csv` dataset estrazioni
-- `scripts/` utility locali (opzionali)
+## Contenuti Attuali
+- Home con moduli in evidenza e aggiornamenti progetto
+- Catalogo algoritmi con pagine tecniche dedicate
+- Storico estrazioni basato su `draws.csv`
+- Pagina analisi statistiche (frequenze, ritardi, co-occorrenze)
+- Pagine legali: Privacy, Cookie, Contatti/Chi siamo
+- Rail/ticker visuali (componenti UI del progetto, non widget ad-network)
 
-## Card & Manifest
-Le card sono definite da `card.json` in `pages/algoritmi/*/` e da alcune pagine statiche.
+## Struttura Progetto
+- `index.html`: home
+- `pages/algoritmi/`: catalogo e dettaglio algoritmi
+- `pages/storico-estrazioni/`: archivio storico
+- `pages/analisi-statistiche/`: analisi statistiche
+- `pages/privacy-policy/`: privacy policy
+- `pages/cookie-policy/`: cookie policy
+- `pages/contatti-chi-siamo/`: contatti/chi siamo
+- `assets/`: CSS/JS/audio
+- `img/`: immagini condivise
+- `archives/draws/draws.csv`: dataset estrazioni
+- `data/modules-manifest.json`: sorgente principale card
+- `data/cards-index.json`: indice card generato/fallback
+- `scripts/`: utility di manutenzione
 
-Per aggiungere un nuovo algoritmo:
-1. Crea la cartella: `pages/algoritmi/<id>/`
-2. Aggiungi `card.json` e `index.html` (eventuale `img.webp`)
-3. Inserisci il path della card in `data/modules-manifest.json`
+## Flusso Card
+Le card vengono caricate runtime da `data/modules-manifest.json`.
+Ogni algoritmo ha il proprio `card.json`.
 
-L’indice delle card viene generato **al volo** nel browser usando il manifest.  
-`data/cards-index.json` è solo un fallback.
+Per aggiungere una nuova card algoritmo:
+1. Crea `pages/algoritmi/<id>/`
+2. Aggiungi `index.html`, `card.json`, opzionale `img.webp`
+3. Inserisci `pages/algoritmi/<id>/card.json` in `data/modules-manifest.json`
+4. (Opzionale) rigenera indice fallback:
+```bash
+python scripts/build-cards-index.py
+```
 
-## Avvio in locale
-Usa lo script:
+## Avvio Locale
+Esegui:
 ```bat
 start-server.bat
 ```
 Poi apri:
 - `http://localhost:8000/`
 
-## Pubblicazione su GitHub Pages
-Sito statico: basta fare push e abilitare Pages:
-1. Repo → Settings → Pages
-2. Source: Deploy from a branch
-3. Branch: `main`, Folder: `/ (root)`
+## File SEO / Crawl / Ads
+In root sono presenti:
+- `ads.txt` (template da completare con publisher ID AdSense reale)
+- `robots.txt`
+- `sitemap.xml`
 
-URL del sito:
-```
-https://<username>.github.io/ControlChaos/
-```
+Importante:
+- Sostituisci la riga placeholder in `ads.txt` con il tuo `pub-...` reale prima dei controlli monetizzazione in produzione.
+
+## Versionamento
+- La versione UI e in `assets/js/version.js` (`window.CC_VERSION`).
+- Incrementare la versione a ogni rilascio.
+
+## Pubblicazione (GitHub Pages)
+1. Repo -> Settings -> Pages
+2. Source: Deploy from a branch
+3. Branch: `main`
+4. Folder: `/ (root)`
+
+URL atteso:
+- `https://giga-labor.github.io/secc/`
 
 ## Note
-- L’autoplay audio è limitato dai browser. Il toggle audio è disattivato di default.
-- Non è presente backend.
-- I banner sono placeholder, non integrati con AdSense o simili.
+- L'autoplay audio e limitato dai browser; toggle audio disabilitato di default.
+- Nessun backend richiesto.
+
+## Documentazione EN
+Vedi `README.md`.
