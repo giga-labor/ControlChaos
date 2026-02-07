@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Contatti / Chi siamo - SuperEnalotto Control Chaos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            midnight: '#05060F',
+            steel: '#0F1220',
+            night: '#121633',
+            neon: '#FFD966',
+            ash: '#A5B1C9'
+          },
+          boxShadow: {
+            glow: '0 0 22px rgba(255, 217, 102, 0.35)'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/header.css">
+  <link rel="stylesheet" href="../../assets/css/ads.css">
+</head>
+<body class="min-h-screen bg-midnight text-white">
+  <main class="content-fade mx-auto flex w-[calc(100%-2rem)] max-w-[85rem] flex-col gap-10 px-12 py-2">
+    <div class="content-box">
+      <section class="rounded-3xl bg-transparent p-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <p class="text-xs uppercase tracking-[0.2em] text-ash">Info</p>
+            <h1 class="text-2xl font-semibold">Contatti / Chi siamo</h1>
+          </div>
+          <span class="rounded-full border border-white/10 bg-midnight/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-ash">Ultimo aggiornamento: [DATA]</span>
+        </div>
+
+        <div class="mt-8 grid gap-6 md:grid-cols-2">
+          <div class="rounded-2xl border border-white/10 bg-midnight/70 p-5">
+            <h2 class="text-base font-semibold text-white">Chi siamo</h2>
+            <p class="mt-3 text-sm text-ash">SuperEnalotto Control Chaos e un laboratorio indipendente di analisi e modellazione statistica applicata ai dati delle estrazioni. Nessuna promessa di vincita, solo studio e trasparenza.</p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-midnight/70 p-5">
+            <h2 class="text-base font-semibold text-white">Contatti</h2>
+            <ul class="mt-3 space-y-2 text-sm text-ash">
+              <li><strong class="text-white">Email:</strong> giga.labor2026@gmail.com</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="border-t border-white/10 px-6 py-6 text-center text-xs text-ash">
+    <p>? SuperEnalotto Control Chaos | <a class="hover:text-neon" href="../privacy-policy/index.html">Privacy Policy</a> | <a class="hover:text-neon" href="../cookie-policy/index.html">Cookie Policy</a></p>
+  </footer>
+
+  <script src="../../assets/js/version.js" defer></script>
+  <script src="../../assets/js/header.js" defer></script>
+  <script src="../../assets/js/ads.js" defer></script>
+</body>
+</html>
