@@ -9,22 +9,30 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadModules(area, section) {
+  const fallbackMarkup = area.innerHTML;
+  const restoreFallback = () => {
+    if (fallbackMarkup && fallbackMarkup.trim().length) {
+      area.innerHTML = fallbackMarkup;
+    }
+    applyNewsLayout(area, area.querySelectorAll('[data-card-id]').length);
+    if (section) section.classList.remove('hidden');
+  };
   try {
     const cards = await loadCardsIndex(cardsIndexPath);
     const newsModules = cards.filter((module) => isActive(module) && hasNews(module));
     if (!newsModules.length) {
-      if (section) section.classList.add('hidden');
-      area.innerHTML = '';
+      restoreFallback();
       return;
     }
+    if (section) section.classList.remove('hidden');
     newsModules.sort(sortByLastUpdated);
     renderModules(area, newsModules);
-    setupCarousel(area, section);
+    applyNewsLayout(area, newsModules.length);
     if (window.CARDS && typeof window.CARDS.applyFeatures === 'function') {
       window.CARDS.applyFeatures(area);
     }
   } catch (error) {
-    area.innerHTML = '';
+    restoreFallback();
   }
 }
 
@@ -98,6 +106,15 @@ function renderModules(area, modules) {
   if (window.CARDS && typeof window.CARDS.enableDepth === 'function') {
     window.CARDS.enableDepth(area);
   }
+}
+
+function applyNewsLayout(area, count) {
+  area.classList.remove('news-grid', 'news-strip');
+  if (count > 1) {
+    area.classList.add('news-grid');
+    return;
+  }
+  area.classList.add('news-strip');
 }
 
 function hasNews(module) {
@@ -262,10 +279,9 @@ function setupCarousel(area, section) {
 }
 
 function updateCardAlignment(area, count) {
+  void count;
   area.classList.remove('justify-center');
-  if (count <= 2) {
-    area.classList.add('justify-center');
-  }
+  area.classList.add('justify-start');
 }
 
 

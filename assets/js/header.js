@@ -1,4 +1,4 @@
-const GA_MEASUREMENT_ID = 'G-7FLYS8Y9BB';
+﻿const GA_MEASUREMENT_ID = 'G-7FLYS8Y9BB';
 
 const ensureAnalytics = () => {
   if (!GA_MEASUREMENT_ID) return;
@@ -123,50 +123,28 @@ const buildHeaderMarkup = () => `
         <h1 class="header-title mt-4 text-3xl sm:text-5xl font-semibold drop-shadow-[0_0_14px_rgba(255,217,102,0.35)]">Statistiche e algoritmi per dominare il caos del <span class="superenalotto-mark" aria-label="Super-Enalotto"><span class="super-word">S<span class="super-u">u</span>per</span><span class="super-dash">-</span><span class="enalotto-word">Enalotto</span></span></h1>
         <div class="header-actions mt-10 flex flex-wrap items-center justify-between gap-4">
           <div class="header-actions__left flex flex-wrap items-center gap-4">
-            <a class="home-badge home-badge--icon bg-neon/10 px-6 py-3 font-semibold text-neon transition hover:-translate-y-1 hover:bg-neon/20 hover:shadow-[0_0_22px_rgba(255,217,102,0.45)]" href="${resolveWithBaseHref('index.html')}#top" aria-label="Home" data-tooltip="HOME PAGE">
-              <svg class="home-badge__icon" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4.5 11.2 12 5l7.5 6.2" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M6.5 10.8V19h11V10.8" stroke-linecap="round" stroke-linejoin="round"></path>
-                <rect x="10.2" y="13.2" width="3.6" height="5.8" rx="0.8"></rect>
-                <path d="M8.7 13.3h1.7M13.6 8.4h1.8" stroke-linecap="round"></path>
-              </svg>
+            <a class="home-badge home-badge--icon home-badge--home bg-neon/10 px-6 py-3 font-semibold text-neon transition" href="${resolveWithBaseHref('index.html')}#top" aria-label="Home" data-tooltip="HOME PAGE">
+              <span class="home-badge__home-bg" aria-hidden="true"></span>
+              <img class="home-badge__home-img" src="${resolveWithBaseHref('img/home.png')}" alt="" aria-hidden="true">
             </a>
-            <a class="home-badge home-badge--icon bg-neon/10 px-6 py-3 font-semibold text-neon transition hover:-translate-y-1 hover:bg-neon/20 hover:shadow-[0_0_22px_rgba(255,217,102,0.45)]" href="${resolveWithBaseHref('pages/storico-estrazioni/')}" aria-label="Storico estrazioni" data-tooltip="Storico estrazioni">
-              <svg class="home-badge__icon" viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="17.5" cy="7.5" r="4.2"></circle>
-                <path d="M17.5 5.2v2.4l1.8 1" stroke-linecap="round" stroke-linejoin="round"></path>
-                <rect x="4" y="9" width="11.5" height="8.5" rx="1.2"></rect>
-                <rect x="6" y="6.5" width="11.5" height="8.5" rx="1.2"></rect>
-                <rect x="8" y="4" width="11.5" height="8.5" rx="1.2"></rect>
-                <path d="M10.5 7h4.5M10.5 9.2h6.5" stroke-linecap="round"></path>
-              </svg>
+            <a class="home-badge home-badge--icon home-badge--home bg-neon/10 px-6 py-3 font-semibold text-neon transition" href="${resolveWithBaseHref('pages/storico-estrazioni/')}" aria-label="Storico estrazioni" data-tooltip="Storico estrazioni">
+              <span class="home-badge__home-bg" aria-hidden="true"></span>
+              <img class="home-badge__home-img" src="${resolveWithBaseHref('img/history.png')}" alt="" aria-hidden="true">
             </a>
-            <a class="home-badge home-badge--icon bg-neon/10 px-6 py-3 font-semibold text-neon transition hover:-translate-y-1 hover:bg-neon/20 hover:shadow-[0_0_22px_rgba(255,217,102,0.45)]" href="${resolveWithBaseHref('pages/algoritmi/index.html')}" aria-label="Algoritmi" data-tooltip="Algoritmi">
-              <svg class="home-badge__icon" viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="3" y="4" width="6" height="4" rx="1"></rect>
-                <rect x="15" y="4" width="6" height="4" rx="1"></rect>
-                <rect x="9" y="16" width="6" height="4" rx="1"></rect>
-                <path d="M6 8v4h12V8" stroke-linecap="round"></path>
-                <path d="M12 12v4" stroke-linecap="round"></path>
-              </svg>
+            <a class="home-badge home-badge--icon home-badge--home bg-neon/10 px-6 py-3 font-semibold text-neon transition" href="${resolveWithBaseHref('pages/algoritmi/index.html')}" aria-label="Algoritmi" data-tooltip="Algoritmi">
+              <span class="home-badge__home-bg" aria-hidden="true"></span>
+              <img class="home-badge__home-img" src="${resolveWithBaseHref('img/algoritm.png')}" alt="" aria-hidden="true">
             </a>
-            <a class="home-badge home-badge--icon bg-neon/10 px-6 py-3 font-semibold text-neon transition hover:-translate-y-1 hover:bg-neon/20 hover:shadow-[0_0_22px_rgba(255,217,102,0.45)]" href="${resolveWithBaseHref('pages/analisi-statistiche/')}" aria-label="Analisi statistiche" data-tooltip="Analisi statistiche">
-              <svg class="home-badge__icon" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 18l5-6 4 3 7-9" stroke-linecap="round" stroke-linejoin="round"></path>
-                <circle class="icon-fill" cx="9" cy="12" r="1.6"></circle>
-                <circle class="icon-fill" cx="13" cy="15" r="1.6"></circle>
-                <circle class="icon-fill" cx="20" cy="6" r="1.6"></circle>
-              </svg>
+            <a class="home-badge home-badge--icon home-badge--home bg-neon/10 px-6 py-3 font-semibold text-neon transition" href="${resolveWithBaseHref('pages/analisi-statistiche/')}" aria-label="Analisi statistiche" data-tooltip="Analisi statistiche">
+              <span class="home-badge__home-bg" aria-hidden="true"></span>
+              <img class="home-badge__home-img" src="${resolveWithBaseHref('img/statistic.png')}" alt="" aria-hidden="true">
             </a>
           </div>
           <div class="header-actions__right">
-            <button class="home-badge home-badge--audio bg-neon/10 px-4 py-3 text-neon transition hover:-translate-y-1 hover:bg-neon/20 hover:shadow-[0_0_22px_rgba(255,217,102,0.45)]" type="button" aria-label="Audio" data-tooltip="MUSIC" data-audio-toggle${AUDIO_ENABLED ? '' : ' hidden'}>
-              <svg class="audio-icon" viewBox="0 0 32 24" aria-hidden="true">
-                <polygon points="3,4 15,12 3,20"></polygon>
-                <rect x="18" y="5" width="4" height="14" rx="1"></rect>
-                <rect x="25" y="5" width="4" height="14" rx="1"></rect>
-              </svg>
-              <span class="audio-track" data-audio-track>—</span>
+            <button class="home-badge home-badge--audio home-badge--home bg-neon/10 px-4 py-3 text-neon transition" type="button" aria-label="Audio" data-tooltip="MUSIC" data-audio-toggle${AUDIO_ENABLED ? '' : ' hidden'}>
+              <span class="home-badge__home-bg" aria-hidden="true"></span>
+              <img class="home-badge__home-img audio-icon" src="${resolveWithBaseHref('img/home.png')}" alt="" aria-hidden="true">
+              <span class="audio-track" data-audio-track>â€”</span>
             </button>
           </div>
         </div>
@@ -201,16 +179,31 @@ if (header) {
 
 if (header) {
   const main = document.querySelector('main');
-  const isHome = document.body && document.body.id === 'top';
+  const getResponsiveContentGap = () => {
+    const width = window.innerWidth || document.documentElement.clientWidth || 0;
+    const railMode = document.documentElement.getAttribute('data-ad-rail') || 'right';
+    const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+
+    if (width >= 1600) return 22;
+    if (width >= 1400) return 20;
+    if (width >= 1200) return 18;
+    if (width >= 1024) return 16;
+    if (width >= 768) return railMode === 'bottom' || isPortrait ? 12 : 14;
+    return 10;
+  };
+
   const setHeaderOffsets = () => {
     const container = header.querySelector('.header-container') || header;
     const wrap = header.querySelector('.header-wrap') || container;
     const rect = container.getBoundingClientRect();
+    const headerRect = header.getBoundingClientRect();
     const wrapRect = wrap.getBoundingClientRect();
-    const safePad = isHome ? 8 : 24;
-    const offset = Math.ceil(rect.bottom + safePad);
+    const contentGap = getResponsiveContentGap();
+    const headerBottom = Math.max(rect.bottom, wrapRect.bottom, headerRect.bottom);
+    const offset = Math.ceil(headerBottom + contentGap);
     document.documentElement.style.setProperty('--fixed-header-offset', `${offset}px`);
-    document.documentElement.style.setProperty('--header-fade-height', `${Math.ceil(rect.bottom + 10)}px`);
+    document.documentElement.style.setProperty('--header-content-gap', `${contentGap}px`);
+    document.documentElement.style.setProperty('--header-fade-height', `${Math.ceil(offset + 1)}px`);
     document.documentElement.style.setProperty('--col-x', `${Math.max(0, Math.round(wrapRect.left))}px`);
     document.documentElement.style.setProperty('--col-w', `${Math.max(0, Math.round(wrapRect.width))}px`);
     if (main) {
@@ -305,6 +298,109 @@ window.addEventListener('resize', updateAdRails);
 window.addEventListener('resize', syncHeaderTitleVisibility);
 // Ads stay standing; no scroll listener.
 
+const bindGlassLight = () => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let pointerX = Math.round(window.innerWidth * 0.5);
+  let pointerY = Math.round(window.innerHeight * 0.2);
+  let rafId = 0;
+
+  const reflectiveSelector = [
+    '#site-header .header-container',
+    '#site-header .header-wrap',
+    '.ad-rail__panel',
+    '.bottom-ad__panel',
+    '.content-box',
+    '.card-3d'
+  ].join(', ');
+
+  const ensureOverlay = (el) => {
+    if (!el || !(el instanceof HTMLElement)) return;
+    el.classList.add('glass-reflective');
+    if (!el.querySelector(':scope > .glass-light-overlay')) {
+      const overlay = document.createElement('span');
+      overlay.className = 'glass-light-overlay';
+      overlay.setAttribute('aria-hidden', 'true');
+      el.appendChild(overlay);
+    }
+  };
+
+  const refreshReflectiveTargets = () => {
+    document.querySelectorAll(reflectiveSelector).forEach(ensureOverlay);
+  };
+
+  const applyLight = () => {
+    rafId = 0;
+    const targets = document.querySelectorAll('.glass-reflective');
+    targets.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      const localX = ((pointerX - rect.left) / rect.width) * 100;
+      const localY = ((pointerY - rect.top) / rect.height) * 100;
+      const clampedX = Math.max(-10, Math.min(110, localX));
+      const clampedY = Math.max(-10, Math.min(110, localY));
+
+      const cx = rect.left + rect.width * 0.5;
+      const cy = rect.top + rect.height * 0.5;
+      const dx = pointerX - cx;
+      const dy = pointerY - cy;
+      const dist = Math.hypot(dx, dy);
+      const maxDist = Math.hypot(rect.width, rect.height) * 0.9;
+      const activationDist = maxDist * 0.36;
+      if (dist > activationDist) {
+        el.style.setProperty('--glass-light-a', '0');
+        return;
+      }
+      const proximity = Math.max(0, 1 - (dist / activationDist));
+      const eased = proximity * proximity * (3 - 2 * proximity);
+      const intensity = 0.62 * eased;
+      const radius = Math.max(70, Math.min(160, Math.min(rect.width, rect.height) * 0.34));
+
+      el.style.setProperty('--glass-light-x', `${clampedX.toFixed(2)}%`);
+      el.style.setProperty('--glass-light-y', `${clampedY.toFixed(2)}%`);
+      el.style.setProperty('--glass-light-a', intensity.toFixed(3));
+      el.style.setProperty('--glass-light-r', `${radius.toFixed(1)}px`);
+    });
+  };
+
+  const scheduleApply = () => {
+    if (rafId) return;
+    rafId = window.requestAnimationFrame(applyLight);
+  };
+
+  const onPointerMove = (event) => {
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    scheduleApply();
+  };
+
+  window.addEventListener('pointermove', onPointerMove, { passive: true });
+  window.addEventListener('resize', () => {
+    refreshReflectiveTargets();
+    scheduleApply();
+  });
+  window.addEventListener('scroll', scheduleApply, { passive: true });
+  window.addEventListener('load', () => {
+    refreshReflectiveTargets();
+    scheduleApply();
+  });
+
+  const observer = new MutationObserver(() => {
+    refreshReflectiveTargets();
+    scheduleApply();
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  refreshReflectiveTargets();
+  window.setTimeout(() => {
+    refreshReflectiveTargets();
+    scheduleApply();
+  }, 120);
+};
+
+bindGlassLight();
+
 const homeBadges = document.querySelectorAll('.home-badge[data-tooltip]');
 let homeTooltip = document.querySelector('[data-home-tooltip]');
 if (homeBadges.length && !homeTooltip) {
@@ -359,7 +455,7 @@ if (audioToggle && AUDIO_ENABLED) {
     if (playlist) return playlist;
     if (!playlistPromise) {
       const cacheBust = Date.now();
-      const playlistUrl = resolveWithBaseHref(`assets/audio/playlist.json?v=${cacheBust}`);
+      const playlistUrl = resolveWithBaseHref(`assets/audio/playlist.json?cb=${cacheBust}`);
       playlistPromise = fetch(playlistUrl)
         .then((response) => {
           if (!response.ok) {
@@ -543,7 +639,7 @@ if (audioToggle && AUDIO_ENABLED) {
       <button type="button" data-audio-prev aria-label="Brano precedente">Prev</button>
       <button type="button" data-audio-next aria-label="Brano successivo">Next</button>
       <button type="button" data-audio-random aria-label="Brano random">Rnd</button>
-      <button type="button" data-audio-vol-down aria-label="Volume giù">Vol-</button>
+      <button type="button" data-audio-vol-down aria-label="Volume giÃ¹">Vol-</button>
       <button type="button" data-audio-vol-up aria-label="Volume su">Vol+</button>
     `;
     (header || document.body).appendChild(audioMenu);
@@ -714,3 +810,4 @@ document.addEventListener('click', (event) => {
   if (supportsCrossDocumentTransitions()) return;
   markPageNavigating();
 });
+

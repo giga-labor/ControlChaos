@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
@@ -25,9 +25,9 @@
       }
     }
   </script>
-  <link rel="stylesheet" href="assets/css/main.css?v=00.02.003">
-  <link rel="stylesheet" href="assets/css/header.css?v=00.02.003">
-  <link rel="stylesheet" href="assets/css/ads.css?v=00.02.003">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/header.css">
+  <link rel="stylesheet" href="assets/css/ads.css">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7FLYS8Y9BB"></script>
   <script>
@@ -41,67 +41,42 @@
 <body class="bg-midnight text-white" id="top">
 
 
-  <main class="content-fade mx-auto flex max-w-5xl content-width flex-col gap-10 px-6 py-2">
-    <section id="modules" class="pt-0 mt-[20px]" data-module-section>
+  <main class="content-fade home-main mx-auto flex max-w-5xl content-width flex-col px-6 py-2">
+    <section id="modules" class="pt-0 mt-[12px]" data-module-section>
       <div class="cards-shell mt-1 bg-transparent">
-        <button class="cards-nav cards-nav--prev rounded-full border border-white/15 bg-white/5 px-3 py-2 text-xs uppercase tracking-[0.2em] text-ash transition hover:border-neon/60 hover:text-neon" type="button" data-module-prev aria-label="Scorri a sinistra">Prev</button>
         <div class="cards-viewport">
-          <div class="flex gap-4 overflow-x-auto pb-3 snap-x snap-mandatory scroll-smooth" data-module-area data-module-scroll></div>
+          <div class="flex gap-4 overflow-x-auto pb-3 snap-x snap-mandatory scroll-smooth" data-module-area data-module-scroll>
+            <a class="card-3d algorithm-card is-active flex min-h-[330px] w-[clamp(200px,22vw,230px)] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-white/10 transition hover:border-neon/60" data-card-id="storico-estrazioni" href="pages/storico-estrazioni/index.html" aria-label="Apri Storico estrazioni">
+              <div class="algorithm-card__media algorithm-card__media--third relative overflow-hidden">
+                <img class="h-full w-full saturate-110" style="object-fit:contain;object-position:center top;" src="pages/storico-estrazioni/img.webp" alt="Anteprima di Storico estrazioni">
+                <span class="card-type-badge">NOVITA</span>
+                <span class="card-date-badge"><span data-card-updated>02/02/2026</span></span>
+              </div>
+              <div class="algorithm-card__body flex flex-1 flex-col gap-1.5 px-4 py-2.5">
+                <span class="text-[10px] uppercase tracking-[0.22em] text-neon/90">storico</span>
+                <h3 class="text-[0.98rem] font-semibold leading-tight">Storico estrazioni</h3>
+                <p class="text-[0.74rem] leading-[1.25] text-ash">Archivio completo delle estrazioni</p>
+                <p class="algorithm-card__desc text-[0.74rem] leading-[1.25] text-white/80">Le nuove estrazioni saranno disponibili quando pubblicate sul sito ufficiale.</p>
+                <div class="mt-auto text-xs text-ash">
+                  <div class="card-numbers" data-card-numbers hidden></div>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
-        <button class="cards-nav cards-nav--next rounded-full border border-white/15 bg-white/5 px-3 py-2 text-xs uppercase tracking-[0.2em] text-ash transition hover:border-neon/60 hover:text-neon" type="button" data-module-next aria-label="Scorri a destra">Next</button>
       </div>
     </section>
-
-    <div class="content-box">
-    <section class="mt-8" id="work-in-progress">
-      <div>
-        <h3 class="text-xl font-semibold">Lavori in corso</h3>
-        <p class="mt-2 text-ash">Immagini tratte dal flusso degli algoritmi, per ricordare che ogni modulo è una fabbrica in movimento.</p>
-      </div>
-      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <figure class="rounded-xl border border-white/5 bg-midnight p-3 transition hover:-translate-y-1 hover:shadow-[0_0_18px_rgba(255,217,102,0.25)]">
-          <img class="rounded-lg" src="img/headerControlChaos3.webp" alt="Grafico in progress">
-          <figcaption class="mt-3 text-sm text-ash">Elaborazioni statistiche in fase di ritocco</figcaption>
-        </figure>
-        <figure class="rounded-xl border border-white/5 bg-midnight p-3 transition hover:-translate-y-1 hover:shadow-[0_0_18px_rgba(255,217,102,0.25)]">
-          <img class="rounded-lg" src="img/headerControlChaos3.webp" alt="Interfaccia Work in Progress">
-          <figcaption class="mt-3 text-sm text-ash">Reti neurali che "assorbono" dati e trend</figcaption>
-        </figure>
-        <figure class="rounded-xl border border-white/5 bg-midnight p-3 transition hover:-translate-y-1 hover:shadow-[0_0_18px_rgba(255,217,102,0.25)]">
-          <img class="rounded-lg" src="img/fortuna.webp" alt="Palette fortuna">
-          <figcaption class="mt-3 text-sm text-ash">Luce e caos: la palette del progetto mentre aggiorniamo i moduli</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section class="mt-8">
-      <h3 class="text-xl font-semibold">Vuoi inserire un nuovo algoritmo?</h3>
-      <p class="mt-2 text-ash">Aggiungi il JSON nella cartella modulo, aggiorna il manifest e la card sarà subito disponibile nel catalogo.</p>
-      <a class="mt-5 inline-flex rounded-full bg-gradient-to-r from-neon via-yellow-300 to-amber-400 px-6 py-3 font-semibold text-midnight shadow-glow transition hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(255,217,102,0.6)]" href="#modules">Aggiungi un modulo</a>
-    </section>
-      </div>
   </main>
 
-  <footer class="border-t border-white/10 px-6 py-8 text-center text-sm text-ash">
-    <p>© 2026 SuperEnalotto Control Chaos — Analisi statistiche e modelli sperimentali su dati storici Superenalotto.</p>
-    <p>Scrolla verso l'alto per rivedere i moduli.</p>
-    <div class="mt-4 flex flex-wrap items-center justify-center gap-4 text-xs uppercase tracking-[0.2em] text-ash">
-      <a class="transition hover:text-neon" href="pages/privacy-policy/index.html">Privacy Policy</a>
-      <span class="opacity-40">|</span>
-      <a class="transition hover:text-neon" href="pages/cookie-policy/index.html">Cookie Policy</a>
-      <span class="opacity-40">|</span>
-      <a class="transition hover:text-neon" href="pages/contatti-chi-siamo/index.html">Contatti / Chi siamo</a>
-    </div>
-  </footer>
-
-  <script src="assets/js/version.js?v=00.02.003" defer></script>
-  <script src="assets/js/header.js?v=00.02.003" defer></script>
-  <script src="assets/js/cards.js?v=00.02.003" defer></script>
-  <script src="assets/js/cards-index.js?v=00.02.003" defer></script>
-  <script src="assets/js/site.js?v=00.02.003" defer></script>
-  <script src="assets/js/ads.js?v=00.02.003" defer></script>
+  <script src="assets/js/version.js" defer></script>
+  <script src="assets/js/header.js" defer></script>
+  <script src="assets/js/cards.js" defer></script>
+  <script src="assets/js/cards-index.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/ads.js" defer></script>
 </body>
 </html>
+
 
 
 
